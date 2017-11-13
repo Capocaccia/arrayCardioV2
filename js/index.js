@@ -17,11 +17,52 @@
 
     // Some and Every Checks
     // Array.prototype.some() // is at least one person 19 or older?
+    Array.prototype.some = function(age){
+      var truthy = true;
+      const date = new Date;
+      const currentYear = date.getFullYear();
+        for(var i = 0; i < this.length; i++){
+          if(currentYear - this[i].year >= 19){
+            truthy = true;
+            break;
+          } else {
+            truthy = false;
+            continue;
+          }
+        }
+        return truthy;
+    }
+
+
     // Array.prototype.every() // is everyone 19 or older?
+    Array.prototype.every = function(age){
+      var truthy = true;
+      const date = new Date;
+      const currentYear = date.getFullYear();
+        for(var i = 0; i < this.length; i++){
+          if( currentYear - this[i].year >= age && truthy){
+            continue;
+          } else {
+            truthy = false;
+            break;
+          }
+        }
+        return truthy;
+    }
 
     // Array.prototype.find()
     // Find is like filter, but instead returns just the one you are looking for
     // find the comment with the ID of 823423
+    Array.prototype.find = function(key){
+      for(var i = 0; i < this.length; i++){
+        if(this[i].id === key){
+          return this[i];
+        } else {
+          continue;
+        }
+      }
+      return 'Not Found.'
+    }
 
     // Array.prototype.findIndex()
     // Find the comment with this ID
