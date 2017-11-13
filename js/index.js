@@ -15,68 +15,53 @@
       { text: 'Nice Nice Nice!', id: 542328 }
     ];
 
-    console.log('Data available! Type "people" or "comments" into the console to view available data.');
+    console.log('People Array:');
+    console.table(people);
 
     // Some and Every Checks
     // Array.prototype.some() // is at least one person 19 or older?
-    Array.prototype.some = function(age){
-      var truthy = true;
-      const date = new Date;
-      const currentYear = date.getFullYear();
-        for(var i = 0; i < this.length; i++){
-          if(currentYear - this[i].year >= 19){
-            truthy = true;
-            break;
-          } else {
-            truthy = false;
-            continue;
-          }
-        }
-        return truthy;
-    }
+    const atLeastOneOverX = people.some((person) => {
+      const currentYear = (new Date).getFullYear();
+      return currentYear - person.year >= 19;
+    })
+    console.log('Is at least one person in the people array over 19?: ' + atLeastOneOverX);
 
 
     // Array.prototype.every() // is everyone 19 or older?
-    Array.prototype.every = function(age){
-      var truthy = true;
-      const date = new Date;
-      const currentYear = date.getFullYear();
-        for(var i = 0; i < this.length; i++){
-          if( currentYear - this[i].year >= age && truthy){
-            continue;
-          } else {
-            truthy = false;
-            break;
-          }
-        }
-        return truthy;
-    }
+    const allOverXAge = people.every((person) => {
+      const currentYear = (new Date).getFullYear();
+      return currentYear - person.year < 19;
+    });
+    console.log('Is everyone in the people array over 19?: ' + allOverXAge);
+
+
+
+    console.log('\n')
+    console.log('Comments Array:');
+    console.table(comments);
+    console.log('\n')
+
 
     // Array.prototype.find()
     // Find is like filter, but instead returns just the one you are looking for
     // find the comment with the ID of 823423
-    Array.prototype.find = function(key){
-      for(var i = 0; i < this.length; i++){
-        if(this[i].id === key){
-          return this[i];
-        } else {
-          continue;
-        }
-      }
-      return 'Not Found.'
-    }
+    const commentEqualsId = comments.find((comment) => {
+      return comment.id === 823423 ?  comment  : 'No Match Found'
+    });
+    console.log('Match Result for comment id of 812423: ');
+    console.table(commentEqualsId);
 
     // Array.prototype.findIndex()
     // Find the comment with this ID
     // delete the comment with the ID of 823423
-    Array.prototype.findIndex = function(key){
-      for(var i = 0; i < this.length; i++){
-        if(this[i].id === key){
-          delete this[i]
-          return {message: 'Deleted item with property value of ' + key, data: this};
-        } else {
-          continue;
-        }
-      }
-      return {'message': 'No match found for '  + key, 'data': this};
-    }
+    const commentDeleteIndex = comments.findIndex((comment) => {
+       return comment.id === 823423       
+    });
+
+    const newComments = [
+      ...comments.slice(0, commentDeleteIndex),
+      ...comments.slice(commentDeleteIndex + 1)
+    ]
+
+    console.log('Delete result for comment ID of 812423: ')
+    console.table(newComments);
