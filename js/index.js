@@ -15,6 +15,8 @@
       { text: 'Nice Nice Nice!', id: 542328 }
     ];
 
+    console.log('Data available! Type "people" or "comments" into the console to view available data.');
+
     // Some and Every Checks
     // Array.prototype.some() // is at least one person 19 or older?
     Array.prototype.some = function(age){
@@ -67,3 +69,14 @@
     // Array.prototype.findIndex()
     // Find the comment with this ID
     // delete the comment with the ID of 823423
+    Array.prototype.findIndex = function(key){
+      for(var i = 0; i < this.length; i++){
+        if(this[i].id === key){
+          delete this[i]
+          return {message: 'Deleted item with property value of ' + key, data: this};
+        } else {
+          continue;
+        }
+      }
+      return {'message': 'No match found for '  + key, 'data': this};
+    }
